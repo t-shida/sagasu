@@ -1,0 +1,6 @@
+% layout 'default';
+% title 'sagasu';
+
+<h2><%= $msg %></h2>
+
+<%= link_to 'here' => '/perldoc' %>.
