@@ -28,6 +28,8 @@ sub startup {
   my $admin = $r->under->to('admin#login');
   $admin->post('/admin')->to('admin#login');
   $admin->get('/admin')->to('admin#index');
+  $admin->get('/admin/login')->to('admin#login');
+  $admin->get('/admin/logout')->to('admin#logout');
 }
 
 1;

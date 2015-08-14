@@ -1,5 +1,5 @@
 % layout 'admin';
-% title 'sagasu';
+% title 'Home';
 
 <h2><%= $msg %></h2>
 

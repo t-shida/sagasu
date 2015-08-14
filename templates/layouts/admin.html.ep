@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head><title><%= title %></title></head>
-  <body>
-    <h1>admin</h1>
+  <head>
+    <title><%= title %></title>
+    <%= stylesheet '/css/main.css' %>
+  </head>
+  <body class="page-admin">
+    <header>
+    <h1 class="logo">sagasu</h1>
+    <div class="user-status">user:<%= session 'email' %>&nbsp;&nbsp;<a href="<%= url_for('/admin/logout') %>">logout</a></div>
+    </header>
+    <p class="pan">Home</p>
     <%= content %>
   </body>
 </html>
