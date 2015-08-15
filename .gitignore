@@ -1,2 +1,3 @@
 etc/auth.conf
 *.swp
+log/*

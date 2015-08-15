@@ -1,4 +1,4 @@
-package SagasuApp::Controller::Admin;
+package SagasuApp::Controller::Admin::Root;
 
 use strict;
 use warnings;
@@ -6,21 +6,26 @@ use warnings;
 use Mojo::Base 'Mojolicious::Controller';
 
 sub login {
-  my $self = shift;
-#die $self->dumper($self->session( 'admin' ));
-  return 1 if $self->session( 'admin' );
+    my $self = shift;
 
-  my $user = $self->config->{ admin_user };
-  my $email = $self->param( 'email' );
-  my $password = $self->param( 'password' );
-  if ( $email eq $user->{ email } && $password eq $user->{ password } ) {
-    $self->session( admin => 1 );
-    $self->session( email => $email );
-    $self->redirect_to( '/admin' );
-  }
+    return 1 if $self->session( 'admin' );
 
-  $self->render;
-  return undef;
+    my $log = Mojo::Log->new(
+        path => $self->app->home->rel_file( $self->config->{ log_file } )
+    );
+
+    my $user = $self->config->{ admin_user };
+    my $email = $self->param( 'email' );
+    my $password = $self->param( 'password' );
+    if ( $email eq $user->{ email } && $password eq $user->{ password } ) {
+        $self->session( admin => 1 );
+        $self->session( email => $email );
+        $log->info( $email . ' has logged in' );
+        $self->redirect_to( '/admin' );
+    }
+
+    $self->render;
+    return undef;
 }
 
 sub auth {
@@ -52,7 +57,6 @@ sub logout {
   $self->session( expires => 1 );
   $self->redirect_to( '/admin/login' );
   return undef;
-
 }
 
 1;

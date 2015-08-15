@@ -4,8 +4,8 @@
     margin:0;
 }
 
-
-.com-logo{
+ul{
+    list-style-position: inside;
 }
 
 /*************************
@@ -24,6 +24,7 @@ page-admin
     padding-bottom:10px;
     float:left;
 }
+
 .page-admin header .user-status{
     float:right;
 }
@@ -31,3 +32,20 @@ page-admin
 .page-admin .pan{
     padding:5px 0 20px 0;
 }
+.page-admin .contentes_area{
+    width:100%;
+    overflow:hidden;
+}
+.page-admin navi{
+    width10%;
+    float:left;
+}
+.page-admin main{
+    width:85%;
+    float:right;
+}
+.page-admin main h2{
+    padding-bottom:10px;
+}
+
+

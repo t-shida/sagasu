@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <%= stylesheet '/css/main.css' %>
-  </head>
-  <body class="page-admin">
-    <header>
-    <h1 class="logo">sagasu</h1>
-    <div class="user-status">user:<%= session 'email' %>&nbsp;&nbsp;<a href="<%= url_for('/admin/logout') %>">logout</a></div>
-    </header>
-    <p class="pan">Home</p>
-    <%= content %>
+    <head>
+        <title><%= title %></title>
+        <%= stylesheet '/css/admin.css' %>
+    </head>
+    <body class="page-admin">
+    % if ( $self->session->{ email } ) {
+        <header>
+        <h1 class="logo">sagasu</h1>
+            <div class="user-status">user:<%= $self->session->{ email } %>&nbsp;&nbsp;<a href="<%= url_for('/admin/logout') %>">logout</a></div>
+        </header>
+    % }
+        <div class="contents_area">
+        % if ( $self->session->{ email } ) {
+            <navi>
+                %= include 'admin/include/menu'
+            </navi>
+        % }
+            <main>
+                <%= content %>
+            </main>
+        </div>
   </body>
 </html>

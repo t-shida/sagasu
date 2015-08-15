@@ -1,0 +1,5 @@
+<h2>menu</h2>
+<ul>
+    <li><a href="<%= url_for('/admin/') %>">top</a></li>
+    <li><a href="<%= url_for('/admin/log') %>">log</a></li>
+</ul>
