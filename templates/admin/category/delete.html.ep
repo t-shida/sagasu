@@ -1,0 +1,32 @@
+% layout 'admin';
+% title 'Category';
+
+<h2>category</h2>
+
+<div class="pdg-btm-m">
+    <a href="<%= url_for('/admin/category/') %>">list</a>
+    <a href="<%= url_for('/admin/category/add') %>">add</a>
+</div>
+
+%= form_for '/admin/category/delete' => (method => 'POST') => begin
+<table>
+    <tr>
+        <td>id</td>
+        <td>
+            %= $id 
+        </td>
+    </tr>
+    <tr>
+        <td>label</td>
+        <td>
+            %= hidden_field id => $id 
+            %= $category 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            %= submit_button 'delete'
+        </td>
+    </tr>
+</table>
+% end

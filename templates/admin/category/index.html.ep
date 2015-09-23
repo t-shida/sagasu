@@ -1,0 +1,26 @@
+% layout 'admin';
+% title 'Category';
+
+<h2>category</h2>
+
+<div class="pdg-btm-m">
+    <a href="<%= url_for('/admin/category/') %>">list</a>
+    <a href="<%= url_for('/admin/category/add') %>">add</a>
+</div>
+
+<table>
+      <tr>
+          <th>id</th>
+          <th>label</th>
+          <th>edit</th>
+          <th>delete</th>
+      </tr>
+% for my $cate ( @$category ) {
+      <tr>
+          <td><%= $cate->id %></td>
+          <td><%= $cate->label %></td>
+          <td><a href="<%= url_for( '/admin/category/edit?id=' . $cate->id ) %>">edit</a></td>
+          <td><a href="<%= url_for('/admin/category/delete?id=' . $cate->id ) %>">delete</a></td>
+      </tr>
+% }
+</table>

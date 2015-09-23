@@ -4,7 +4,9 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious::Controller';
+use SagasuApp::Model::Schema;
 use IO::File;
+use Data::Dumper;
 
 sub index {
     my $self = shift;
@@ -15,6 +17,11 @@ sub index {
     $io->close;
 
     $self->stash->{ log } = \@log;
+
+    #my $schema = SagasuApp::Model::Schema->connect( 'dbi:mysql:sagasu', 'root', 'root' );
+    #my $category_rs = $schema->resultset( 'Category' );
+    #$category_rs->create( { title => 'book' } );
+    #my $category = $category_rs->find( 2 );
 
     $self->render;
 }

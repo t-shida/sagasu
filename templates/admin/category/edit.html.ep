@@ -1,0 +1,32 @@
+% layout 'admin';
+% title 'Category';
+
+<h2>category</h2>
+
+<div class="pdg-btm-m">
+    <a href="<%= url_for('/admin/category/') %>">list</a>
+    <a href="<%= url_for('/admin/category/add') %>">add</a>
+</div>
+
+% if ( $error ) {
+  <div class="pdg-btm-m col-red">
+  <%= $error %>
+  </div>
+% }
+
+%= form_for '/admin/category/edit' => (method => 'POST') => begin
+<table>
+    <tr>
+        <td>label</td>
+        <td>
+            %= hidden_field id => $id 
+            %= text_field category => $category 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            %= submit_button 'edit'
+        </td>
+    </tr>
+</table>
+% end

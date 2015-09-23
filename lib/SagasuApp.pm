@@ -4,19 +4,31 @@ use strict;
 use warnings;
 
 use Mojo::Base 'Mojolicious';
+use SagasuApp::Model::Schema;
 
 # This method will run once at server start
 sub startup {
     my $self = shift;
 
-    # Documentation browser under "/perldoc"
-    #$self->plugin('PODRenderer');
 
     $self->plugin(
         'Config', { file => $self->app->home->rel_file( 'etc/sagasu.conf' ) }
     );
-        $self->plugin(
-        'Config', { file => $self->app->home->rel_file( 'etc/auth.conf' ) }
+    $self->plugin(
+        'Config', { file => $self->app->home->rel_file( 'etc/secret.conf' ) }
+    );
+
+    # Schema
+    my $mysql = $self->config->{ mysql };
+    $self->helper( 
+        'schema' => 
+            sub { SagasuApp::Model::Schema->connect( 
+                "dbi:mysql:$mysql->{ database }",
+                $mysql->{ user },
+                $mysql->{ password }, 
+                { mysql_enable_utf8 => 1 } 
+            ) 
+        } 
     );
 
     # Router
@@ -31,6 +43,11 @@ sub startup {
     $admin->get( '/admin/login' )->to( 'admin-root#login' );
     $admin->get( '/admin/logout' )->to( 'admin-root#logout' );
     
+    $admin->get( '/admin/category' )->to( 'admin-category#index' );
+    $admin->any( '/admin/category/add' )->to( 'admin-category#add' );
+    $admin->any( '/admin/category/edit' )->to( 'admin-category#edit' );
+    $admin->any( '/admin/category/delete' )->to( 'admin-category#delete' );
+
     $admin->get( '/admin/log' )->to( 'admin-log#index' );
     $admin->get( '/admin/log/remove' )->to( 'admin-log#remove' );
 }
